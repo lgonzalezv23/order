@@ -144,3 +144,21 @@ function editProduct(id) {
         }
     });
 }
+
+// Función para eliminar un producto
+function deleteProduct(id) {
+    if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
+        $.ajax({
+            url: "delete_product.php",
+            method: "POST",
+            data: { id },
+            success: function(response) {
+                alert(response); // Mostrar mensaje del servidor
+                showProducts(); // Recargar la lista de productos
+            },
+            error: function() {
+                alert("Error al intentar eliminar el producto.");
+            }
+        });
+    }
+}
