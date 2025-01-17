@@ -22,6 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt->execute($params);
 
-    echo "Producto modificado correctamente.";
+    echo "Producto actualizado correctamente.";
+} else {
+    echo "Método no permitido.";
 }
 ?>

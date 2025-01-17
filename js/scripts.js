@@ -79,3 +79,68 @@ function showPedidos() {
 $(document).ready(function() {
     showProducts();
 });
+
+function editProduct(id) {
+    $.ajax({
+        url: "get_product.php",
+        method: "GET",
+        data: { id },
+        success: function(response) {
+            console.log("Respuesta del servidor:", response); // Depuración
+
+            // El JSON ya es válido, no necesitas parsearlo manualmente
+            const product = response;
+
+            // Construir el formulario con los datos recibidos
+            const formHtml = `
+                <h5 class="mt-3">Editar Producto</h5>
+                <form id="editProductForm">
+                    <input type="hidden" name="id" value="${product.id}">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="${product.nombre}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="precio" class="form-label">Precio</label>
+                        <input type="number" class="form-control" id="precio" name="precio" value="${product.precio}" step="0.01" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="imagen" class="form-label">Imagen</label>
+                        <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </form>
+            `;
+
+            // Mostrar el formulario en el lado derecho
+            $("#dynamicForm").html(formHtml);
+            $("#formSection").removeClass("d-none");
+            $("#content").removeClass("col-md-9").addClass("col-md-6");
+
+            // Manejar el envío del formulario de edición
+            $("#editProductForm").on("submit", function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+
+                $.ajax({
+                    url: "update_product.php",
+                    method: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        alert(response);
+                        showProducts(); // Recargar la lista de productos
+                        hideForm(); // Ocultar el formulario
+                    },
+                    error: function() {
+                        alert("Error al actualizar el producto.");
+                    }
+                });
+            });
+        },
+        error: function() {
+            alert("Error al cargar los datos del producto.");
+        }
+    });
+}
