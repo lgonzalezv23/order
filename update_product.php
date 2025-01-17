@@ -5,6 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
     $nombre = $_POST['nombre'];
     $precio = $_POST['precio'];
+    $categoria_id = $_POST['categoria_id']; // Nuevo campo para categoría
     $ruta_imagen = null;
 
     // Manejo de la imagen
@@ -15,13 +16,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Actualizar datos en la base de datos
-    $sql = "UPDATE items SET nombre = :nombre, precio = :precio" . ($ruta_imagen ? ", imagen = :imagen" : "") . " WHERE id = :id";
+    $sql = "UPDATE items 
+            SET nombre = :nombre, 
+                precio = :precio, 
+                categoria_id = :categoria_id" . 
+                ($ruta_imagen ? ", imagen = :imagen" : "") . " 
+            WHERE id = :id";
+
     $stmt = $conn->prepare($sql);
-    $params = ['nombre' => $nombre, 'precio' => $precio, 'id' => $id];
+    $params = [
+        'nombre' => $nombre,
+        'precio' => $precio,
+        'categoria_id' => $categoria_id,
+        'id' => $id
+    ];
     if ($ruta_imagen) $params['imagen'] = $ruta_imagen;
 
     $stmt->execute($params);
 
-    echo "Producto modificado correctamente.";
+    echo "Producto actualizado correctamente.";
+} else {
+    echo "Método no permitido.";
 }
 ?>

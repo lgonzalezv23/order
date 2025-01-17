@@ -39,21 +39,17 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
 
-            <!-- Sección derecha: Formulario dinámico (oculto por defecto) -->
-            <div class="col-md-3 border-start d-none" id="formSection">
-                <h4 class="mt-3">Formulario</h4>
-                <div id="dynamicForm">
-                    <!-- El formulario dinámico se cargará aquí -->
-                </div>
-            </div>
-        </div>
+           <!-- Sección derecha: Formulario dinámico (oculto por defecto) -->
+<div class="col-md-3 border-start d-none" id="formSection">
+    <h4 class="mt-3">Formulario</h4>
+    <div id="dynamicForm">
+        <!-- El formulario dinámico se cargará aquí -->
     </div>
+</div>
 
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Archivo JS -->
-    <script src="js/scripts.js"></script>
-</body>
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="js/scripts.js"></script>
+
 </html>
